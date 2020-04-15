@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*as informações desta classe, estão sendo enviadas para a Index.cshtml, ou seja,
+ são apresentadas na primeira página do blog*/
+
 namespace Blog.ViewModels.Home
 {
     public class HomeIndexViewModel
     {
+        //as informações desta classe são alimentadas no HomeController
         public string TituloPagina { get; set; }
 
         public ICollection<PostagemHomeIndex> Postagens { get; set; }
