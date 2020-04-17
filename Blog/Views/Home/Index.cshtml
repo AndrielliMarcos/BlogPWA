@@ -84,30 +84,18 @@
         <div class="w3-container w3-padding">
             <h4>Postagens Populares</h4>
         </div>
-        <ul class="w3-ul w3-hoverable w3-white">
 
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Lorem</span><br>
-                <span>Sed mattis nunc</span>
-            </li>
+        <p>
+            <ul class="w3-ul w3-hoverable w3-white">
+                @foreach (PostagemPopularHomeIndex postagemPopular in @Model.PostagensPopulares)
+                {
+                    <li class="w3-padding-16">
+                        <span class="w3-large">@postagemPopular.Titulo</span><br>
+                    </li>
 
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Ipsum</span><br>
-                <span>Praes tinci sed</span>
-            </li>
-            <li class="w3-padding-16">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Dorum</span><br>
-                <span>Ultricies congue</span>
-            </li>
-            <li class="w3-padding-16 w3-hide-medium w3-hide-small">
-                <img src="https://via.placeholder.com/75/BBC9E3" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                <span class="w3-large">Mingsum</span><br>
-                <span>Lorem ipsum dipsum</span>
-            </li>
-        </ul>
+                }
+            </ul>
+        </p>
     </div>
 
     <!-- Sobre Mim -->

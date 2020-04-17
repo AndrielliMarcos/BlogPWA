@@ -101,10 +101,20 @@ namespace Blog.Controllers
 
 
             // Alimentar a lista de postagens populares que serão exibidas na view
-            // TODO Obter lista de postagens populares
+            List<PostagemEntity> listaPostagensPopulares = _postagemOrmService.ObterPostagensPopulares();
+
+            foreach (PostagemEntity postagem in listaPostagensPopulares)
+            {
+                PostagemPopularHomeIndex postagemPopularHomeIndex = new PostagemPopularHomeIndex();
+                postagemPopularHomeIndex.Titulo = postagem.Titulo;
+                postagemPopularHomeIndex.PostagemId = postagem.Id.ToString();
+
+                model.PostagensPopulares.Add(postagemPopularHomeIndex);
+
+            }
 
 
-            return View(model);
+                return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

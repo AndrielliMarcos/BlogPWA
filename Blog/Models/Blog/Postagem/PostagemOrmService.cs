@@ -23,5 +23,14 @@ namespace Blog.Models.Blog.Postagem
                 .Include(p => p.Comentarios)
                 .ToList();
         }
+
+        public List<PostagemEntity> ObterPostagensPopulares()
+        {
+            return _databaseContext.Postagens
+               .Where(c => c.Comentarios.Count > 0)
+               .ToList();
+
+            //COMO ORDENAR AS POSTAGENS PELO MAIOR NUMERO DE COMENTARIOS??
+        }
     }
 }
