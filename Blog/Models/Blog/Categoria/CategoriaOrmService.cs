@@ -104,5 +104,44 @@ namespace Blog.Models.Blog.Categoria
             return _databaseContext.Categorias.Where(c => c.Nome.Contains(nomeCategoria)).ToList();
 
         }
+
+        public CategoriaEntity CriarCategoria(string nome)
+        {
+            var novaCategoria = new CategoriaEntity { Nome = nome };
+            _databaseContext.Categorias.Add(novaCategoria);
+            _databaseContext.SaveChanges();
+
+            return novaCategoria;
+        }
+
+        public CategoriaEntity EditarCategoria(int id, string nome)
+        {
+            var categoria = _databaseContext.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                throw new Exception("Categoria não encontrada!");
+            }
+
+            categoria.Nome = nome;
+            _databaseContext.SaveChanges();
+
+            return categoria;
+        }
+
+        public bool RemoverCategoria(int id)
+        {
+            var categoria = _databaseContext.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                throw new Exception("Categoria não encontrada!");
+            }
+
+            _databaseContext.Categorias.Remove(categoria);
+            _databaseContext.SaveChanges();
+
+            return true;
+        }
     }
 }

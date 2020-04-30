@@ -73,11 +73,37 @@ namespace Blog
 
             app.UseAuthorization();
 
+            //Configuração de rotas
             app.UseEndpoints(endpoints =>
             {
+                /*
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                */
+
+                //rotas da área comum
+                endpoints.MapControllerRoute(
+                    //passa um nome
+                    name: "comum",
+                    //passa um padrão de url
+                    pattern: "/",
+                    //seta os dados que serão usados internamente para achar o controler e a action
+                    defaults: new { controller = "Home", action = "Index"});
+
+                //rotas da áea administrativa
+                    //rota categorias
+                endpoints.MapControllerRoute(
+                    name: "admin.categorias",
+                    pattern: "admin/categorias/{action}/{id?}",
+                    defaults: new { controller = "AdminCategorias", action = "Listar" });
+
+                    //rota autores
+                endpoints.MapControllerRoute(
+                   name: "admin.autores",
+                   pattern: "admin/autores/{action}/{id?}",
+                   defaults: new { controller = "AdminAutores", action = "Listar" });
+
             });
         }
     }
