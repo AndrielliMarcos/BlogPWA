@@ -104,6 +104,18 @@ namespace Blog
                    pattern: "admin/autores/{action}/{id?}",
                    defaults: new { controller = "AdminAutores", action = "Listar" });
 
+                    //rota etiquetas
+                endpoints.MapControllerRoute(
+                   name: "admin.etiquetas",
+                   pattern: "admin/etiquetas/{action}/{id?}",
+                   defaults: new { controller = "AdminEtiquetas", action = "Listar" });
+
+                    //rota postagens
+                endpoints.MapControllerRoute(
+                   name: "admin.postagens",
+                   pattern: "admin/postagens/{action}/{id?}",
+                   defaults: new { controller = "AdminPostagens", action = "Listar" });
+
             });
         }
     }
