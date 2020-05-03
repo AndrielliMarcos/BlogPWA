@@ -5,6 +5,8 @@ using Blog.Models.Blog.Postagem;
 using Blog.Models.Blog.Postagem.Classificacao;
 using Blog.Models.Blog.Postagem.Comentario;
 using Blog.Models.Blog.Postagem.Revisao;
+using Blog.Models.ControleDeAcesso;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Blog
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<Usuario, Papel, int>
     {
         public DbSet<CategoriaEntity> Categorias { get; set; }
 

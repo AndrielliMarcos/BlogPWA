@@ -42,6 +42,8 @@ namespace Blog.Controllers.Admin
         [HttpPost]
         public RedirectToActionResult Criar(AdminPostagensCriarRequestModel request)
         {
+            //DÚVIDA: COMO CRIAR A POSTAGEM NA REVISÃO AUTOMATICAMENTE??
+
             var titulo = request.Titulo;
 
             try

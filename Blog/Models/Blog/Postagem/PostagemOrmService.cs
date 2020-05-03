@@ -30,7 +30,7 @@ namespace Blog.Models.Blog.Postagem
                .Where(c => c.Comentarios.Count > 0)
                .ToList();
 
-            //COMO ORDENAR AS POSTAGENS PELO MAIOR NUMERO DE COMENTARIOS??
+            //DÚVIDA: COMO ORDENAR AS POSTAGENS PELO MAIOR NUMERO DE COMENTARIOS??
         }
 
         public PostagemEntity CriarPostagem(string titulo)
