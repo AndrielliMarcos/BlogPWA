@@ -45,10 +45,16 @@ namespace Blog.Controllers.Admin
             //DÚVIDA: COMO CRIAR A POSTAGEM NA REVISÃO AUTOMATICAMENTE??
 
             var titulo = request.Titulo;
+            var descricao = request.Descricao;
+            var autor = request.Autor;
+            var categoria = request.Categoria;
+            var dataPublicacao = request.DataPublicacao;
+
 
             try
             {
-                _postagemOrmService.CriarPostagem(titulo);
+                _postagemOrmService.CriarPostagem(titulo, descricao, autor, categoria, dataPublicacao);
+                
             }
             catch (Exception exception)
             {
@@ -73,10 +79,14 @@ namespace Blog.Controllers.Admin
         {
             var id = request.Id;
             var titulo = request.Titulo;
+            var descricao = request.Descricao;
+            var autor = request.Autor;
+            var categoria = request.Categoria;
+            var dataPublicacao = request.DataPublicacao;
 
             try
             {
-                _postagemOrmService.EditarPostagem(id, titulo);
+                _postagemOrmService.EditarPostagem(id, titulo, descricao, autor, categoria, dataPublicacao);
             }
             catch (Exception exception)
             {

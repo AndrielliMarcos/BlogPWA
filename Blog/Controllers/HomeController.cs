@@ -66,6 +66,7 @@ namespace Blog.Controllers
                 postagemHomeIndex.Categoria = postagem.Categoria.Nome;
                 postagemHomeIndex.NumeroComentarios = postagem.Comentarios.Count.ToString();
                 postagemHomeIndex.PostagemId = postagem.Id.ToString();
+                postagemHomeIndex.DataPubicacao = postagem.DataPublicacao;
 
                 // Obter última revisão
                 RevisaoEntity ultimaRevisao = postagem.Revisoes.OrderByDescending(o => o.DataCriacao).FirstOrDefault();
@@ -112,8 +113,6 @@ namespace Blog.Controllers
                 model.PostagensPopulares.Add(postagemPopularHomeIndex);
 
             }
-
-
                 return View(model);
         }
 

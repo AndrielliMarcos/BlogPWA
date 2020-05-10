@@ -33,6 +33,7 @@ namespace Blog.ViewModels.Home
 
     public class PostagemHomeIndex
     {
+        internal DateTime DataPubicacao;
         public string Titulo { get; set; }
         public string Data { get; set; }
         public string Descricao { get; set; }

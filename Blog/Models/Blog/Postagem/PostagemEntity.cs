@@ -35,6 +35,7 @@ namespace Blog.Models.Blog.Postagem
         public ICollection<ComentarioEntity> Comentarios { get; set; }
 
         public ICollection<ClassificacaoEntity> Classificacoes { get; set; }
+        public DateTime DataPublicacao { get; set; }
 
 
         public PostagemEntity()
