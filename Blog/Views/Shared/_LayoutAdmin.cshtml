@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>@Model.TituloPagina</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <h1>Administrador</h1>
+    @User.Identity.Name
+    <a href="/acesso/logout">Deslogar</a>
+
+    <div>
+        Menu
+        <ul>
+            <li><a href="/admin/autores">Autores</a></li>
+            <li><a href="/admin/categorias">Categorias</a></li>
+            <li><a href="/admin/etiquetas">Etiquetas</a></li>
+            <li><a href="/admin/postagens">Postagens</a></li>
+        </ul>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+</body>
+</html>

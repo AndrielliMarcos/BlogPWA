@@ -1,0 +1,26 @@
+﻿@model Blog.ViewModels.ControleDeAcesso.ControleDeAcessoLoginViewModel
+
+<h1>Login</h1>
+
+<p>@Model.MensagemLogin</p>
+<p>@Model.MensagemRegistro</p>
+
+<form action="@Url.RouteUrl("controleDeAcesso", new {action = "Login", RedirectUrl = @Model.Destino})" method="post">
+    <input type="hidden" name="destino" value="@Model.Destino">
+
+    <div>
+        <label for="usuario">Usuário</label>
+        <input id="usuario" name="usuario">
+    </div>
+
+    <div>
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password">
+    </div>
+
+    <div>
+        <input type="submit" value="Entrar">
+    </div>
+</form>
+
+<a href="@Url.RouteUrl("controleDeAcesso", new {action = "Registrar"})">Registrar novo usuário</a>

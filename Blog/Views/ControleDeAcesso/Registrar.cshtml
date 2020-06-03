@@ -1,0 +1,39 @@
+﻿@model Blog.ViewModels.ControleDeAcesso.ControleDeAcessoRegistrarViewModel
+
+<h1>Registrar usuário</h1>
+@if (@Model.ErrosRegistro != null) {
+    @foreach (var erro in @Model.ErrosRegistro) {
+        <p>@erro</p>
+    }
+}
+@if (@Model.Erro != null) {
+    <p>@Model.Erro</p>
+}
+
+<form action="@Url.RouteUrl("controleDeAcesso", new {action = "Registrar"})" method="post">
+    <div>
+        <label for="apelido">Apelido</label>
+        <input id="apelido" name="apelido">
+    </div>
+
+    <div>
+        <label for="email">E-mail</label>
+        <input id="email" name="email">
+    </div>
+
+    <div>
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password">
+    </div>
+
+    <div>
+        <label for="token">Token</label>
+        <input id="token" name="token">
+    </div>
+
+    <div>
+        <input type="submit" value="Registrar">
+    </div>
+</form>
+
+<a href="@Url.RouteUrl("controleDeAcesso", new {Action = "Login"})">Voltar ao login</a>

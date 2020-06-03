@@ -39,7 +39,18 @@ namespace Blog
                 //validações do usuário
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
-            }).AddEntityFrameworkStores<DatabaseContext>();
+
+            }).AddEntityFrameworkStores<DatabaseContext>()
+                .AddErrorDescriber<DescritorDeErros>();
+
+            // Configurar o mecanismo de controle de acesso
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/acesso/login";
+            });
+
+            // Adicionar o serviço do controle de acesso
+            services.AddTransient<ControleDeAcessoService>();
 
             // Adicionar o serviço do banco de dados
             services.AddDbContext<DatabaseContext>();
@@ -99,8 +110,21 @@ namespace Blog
                     //seta os dados que serão usados internamente para achar o controler e a action
                     defaults: new { controller = "Home", action = "Index"});
 
-                //rotas da áea administrativa
-                    //rota categorias
+                // Rotas do Controle de Acesso
+                endpoints.MapControllerRoute(
+                    name: "controleDeAcesso",
+                    pattern: "acesso/{action}",
+                    defaults: new { controller = "ControleDeAcesso", action = "Login" }
+                );
+
+                //rotas da área administrativa
+                   //rota principal do administrador
+                endpoints.MapControllerRoute(
+                   name: "admin",
+                   pattern: "admin",
+                   defaults: new { controller = "Admin", action = "Painel" });
+
+                   //rota categorias
                 endpoints.MapControllerRoute(
                     name: "admin.categorias",
                     pattern: "admin/categorias/{action}/{id?}",

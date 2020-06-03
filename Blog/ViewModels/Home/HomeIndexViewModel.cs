@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModels.Home
 {
-    public class HomeIndexViewModel
+    public class HomeIndexViewModel : ViewModelAreaComum
     {
         //as informações desta classe são alimentadas no HomeController
-        public string TituloPagina { get; set; }
-
+       
         public ICollection<PostagemHomeIndex> Postagens { get; set; }
 
         public ICollection<CategoriaHomeIndex> Categorias { get; set; }
@@ -24,6 +23,7 @@ namespace Blog.ViewModels.Home
 
         public HomeIndexViewModel()
         {
+            TituloPagina = "Blog PWA";
             Postagens = new List<PostagemHomeIndex>();
             Categorias = new List<CategoriaHomeIndex>();
             Etiquetas = new List<EtiquetaHomeIndex>();
