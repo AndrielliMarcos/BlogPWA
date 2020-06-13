@@ -33,10 +33,10 @@ namespace Blog.Models.Blog.Categoria
             //var algumaCategoriaEspecifica = _databaseContext.Categorias.Single(c => c.Id == 3);
 
             // SingleOrDefault = Mesmo do Sigle, porém retorna nulo caso não encontre nenhuma
-            var algumaCategoriaOuNulo = _databaseContext.Categorias.SingleOrDefault(c => c.Id == 3);
+            //var algumaCategoriaOuNulo = _databaseContext.Categorias.SingleOrDefault(c => c.Id == 3);
 
             // Find = Equivalente ao SingleOrDefault, porém fazendo uma busca por uma propriedade chave
-            var encontrarCategoria = _databaseContext.Categorias.Find(3);
+           // var encontrarCategoria = _databaseContext.Categorias.Find(3);
 
 
             /**********************************************************************************************************/
@@ -44,15 +44,15 @@ namespace Blog.Models.Blog.Categoria
             /**********************************************************************************************************/
 
             // ToList
-            var todasCategorias = _databaseContext.Categorias.ToList();
+           // var todasCategorias = _databaseContext.Categorias.ToList();
 
 
             /***********/
             /* FILTROS */
             /***********/
 
-            var categoriasComALetraG = _databaseContext.Categorias.Where(c => c.Nome.StartsWith("G")).ToList();
-            var categoriasComALetraMouL = _databaseContext.Categorias
+            //var categoriasComALetraG = _databaseContext.Categorias.Where(c => c.Nome.StartsWith("G")).ToList();
+            //var categoriasComALetraMouL = _databaseContext.Categorias
                 .Where(c => c.Nome.StartsWith("M") || c.Nome.StartsWith("L"))
                 .ToList();
 
@@ -62,25 +62,25 @@ namespace Blog.Models.Blog.Categoria
             /* ORDENAÇÃO */
             /*************/
 
-            var categoriasEmOrdemAlfabetica = _databaseContext.Categorias.OrderBy(c => c.Nome).ToList();
-            var categoriasEmOrdemAlfabeticaInversa = _databaseContext.Categorias.OrderByDescending(c => c.Nome).ToList();
+            // var categoriasEmOrdemAlfabetica = _databaseContext.Categorias.OrderBy(c => c.Nome).ToList();
+            // var categoriasEmOrdemAlfabeticaInversa = _databaseContext.Categorias.OrderByDescending(c => c.Nome).ToList();
 
 
             /**************************/
             /* ENTIDADES RELACIONADAS */
             /**************************/
 
-            var categoriasESuasEtiquetas = _databaseContext.Categorias
-                .Include(c => c.Etiquetas)
-                .ToList();
+            // var categoriasESuasEtiquetas = _databaseContext.Categorias
+            //   .Include(c => c.Etiquetas)
+            //  .ToList();
 
-            var categoriasSemEtiquetas = _databaseContext.Categorias
-                .Where(c => c.Etiquetas.Count == 0)
-                .ToList();
+            // var categoriasSemEtiquetas = _databaseContext.Categorias
+            //   .Where(c => c.Etiquetas.Count == 0)
+            //  .ToList();
 
-            var categoriasComEtiquetas = _databaseContext.Categorias
-                .Where(c => c.Etiquetas.Count > 0)
-                .ToList();
+            //var categoriasComEtiquetas = _databaseContext.Categorias
+             //   .Where(c => c.Etiquetas.Count > 0)
+             //   .ToList();
 
             // FIM DOS EXEMPLOS
 
