@@ -1,10 +1,12 @@
 ﻿using Blog.Models.Blog.Categoria;
 using Blog.RequestModels.AdminCategorias;
+using Blog.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Blog.ViewModels.Admin.AdminCategoriasListarViewModel;
 
 namespace Blog.Controllers.Admin
 {
@@ -22,7 +24,23 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Listar()
         {
-            return View();
+            AdminCategoriasListarViewModel model = new AdminCategoriasListarViewModel();
+
+            
+            var listaCategorias = _categoriaOrmService.ObterCategorias();
+
+            
+            foreach (var categoriaEntity in listaCategorias)
+            {
+                var categoriaAdminCategorias = new CategoriaAdminCategorias();
+                categoriaAdminCategorias.Id = categoriaEntity.Id;
+                categoriaAdminCategorias.Nome = categoriaEntity.Nome;
+               
+
+                model.Categorias.Add(categoriaAdminCategorias);
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -34,9 +52,12 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Criar()
         {
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasCriarViewModel model = new AdminCategoriasCriarViewModel();
 
-            return View();
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            return View(model);
         }
 
         [HttpPost]
@@ -60,10 +81,24 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasEditarViewModel model = new AdminCategoriasEditarViewModel();
 
-            return View();
+            // Obter etiqueta a editar
+            var categoriaAEditar = _categoriaOrmService.ObterCategoriaPorId(id);
+            if (categoriaAEditar == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            model.Id = categoriaAEditar.Id;
+            model.Nome = categoriaAEditar.Nome;
+            
+            model.TituloPagina += model.TituloPagina;
+
+            return View(model);
         }
 
         [HttpPost]
@@ -88,10 +123,24 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminCategoriasRemoverViewModel model = new AdminCategoriasRemoverViewModel();
 
-            return View();
+            // Obter etiqueta a remover
+            var categoriaARemover = _categoriaOrmService.ObterCategoriaPorId(id);
+            if (categoriaARemover == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Alimentar o model com os dados da etiqueta a ser editada
+            model.Id = categoriaARemover.Id;
+            model.Nome = categoriaARemover.Nome;
+            model.TituloPagina += model.Nome;
+
+            return View(model);
         }
 
         [HttpPost]

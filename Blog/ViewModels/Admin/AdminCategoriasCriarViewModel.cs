@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModels.Admin
 {
-    public class AdminCategoriasListarViewModel : ViewModelAreaAdministrativa
+    public class AdminCategoriasCriarViewModel : ViewModelAreaAdministrativa
     {
-        public ICollection<CategoriaAdminCategorias> Categorias { get; set; }
-        public AdminCategoriasListarViewModel()
+        public string Erro { get; set; }
+
+        public AdminCategoriasCriarViewModel()
         {
-            TituloPagina = "Categorias - Administrador";
+            TituloPagina = "Criar nova Categoria";
+           
         }
 
         public class CategoriaAdminCategorias
@@ -21,3 +23,4 @@ namespace Blog.ViewModels.Admin
         }
     }
 }
+
