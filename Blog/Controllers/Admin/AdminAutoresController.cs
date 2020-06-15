@@ -1,10 +1,13 @@
 ﻿using Blog.Models.Blog.Autor;
 using Blog.RequestModels.AdminAutores;
+using Blog.RequestModels.AdminCategorias;
+using Blog.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace Blog.Controllers.Admin
 {
@@ -22,11 +25,26 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Listar()
         {
-            return View();
+            AdminAutoresListarViewModel model = new AdminAutoresListarViewModel();
+
+            // Obter Autores
+            var listaAutores = _autorOrmService.ObterAutores();
+
+            // Alimentar o model com autores listados
+            foreach (var autorEntity in listaAutores)
+            {
+                var autorAdminAutores = new AutorAdminAutores();
+                autorAdminAutores.Id = autorEntity.Id;
+                autorAdminAutores.Nome = autorEntity.Nome;
+                
+                model.Autores.Add(autorAdminAutores);
+            }
+
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult Detalhar()
+        public IActionResult Detalhar(int id)
         {
             return View();
         }
@@ -34,9 +52,12 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Criar()
         {
-            ViewBag.erro = TempData["erro-msg"];
+            AdminAutoresCriarViewModel model = new AdminAutoresCriarViewModel();
 
-            return View();
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+           return View(model);
         }
 
         [HttpPost]
@@ -60,14 +81,28 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminAutoresEditarViewModel model = new AdminAutoresEditarViewModel();
 
-            return View();
+            // Obter etiqueta a editar
+            var autorAEditar = _autorOrmService.ObterAutorPorId(id);
+            if (autorAEditar == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Alimentar o model com os dados 
+            model.IdAutor = autorAEditar.Id;
+            model.NomeAutor = autorAEditar.Nome;            
+            model.TituloPagina += model.NomeAutor;
+
+            return View(model);
         }
 
         [HttpPost]
-        public RedirectToActionResult Editar(AdminAutoresCriarRequestModel request)
+        public RedirectToActionResult Editar(AdminAutoresEditarRequestModel request)
         {
             var id = request.Id;
             var nome = request.Nome;
@@ -88,10 +123,24 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminAutoresRemoverViewModel model = new AdminAutoresRemoverViewModel();
 
-            return View();
+            // Obter autor a remover
+            var autorARemover = _autorOrmService.ObterAutorPorId(id);
+            if (autorARemover == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Alimentar o model 
+            model.IdAutor = autorARemover.Id;
+            model.NomeAutor = autorARemover.Nome;
+            model.TituloPagina += model.NomeAutor;
+
+            return View(model);
         }
 
         [HttpPost]

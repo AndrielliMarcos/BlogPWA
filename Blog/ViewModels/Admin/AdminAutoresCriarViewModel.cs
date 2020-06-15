@@ -5,19 +5,23 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModels.Admin
 {
-    public class AdminAutoresListarViewModel : ViewModelAreaAdministrativa
+    public class AdminAutoresCriarViewModel : ViewModelAreaAdministrativa
     {
-        public ICollection<AutorAdminAutores> Autores { get; set; }
-        public AdminAutoresListarViewModel()
+        public string Erro { get; set; }
+
+        public AdminAutoresCriarViewModel()
         {
-            TituloPagina = "Autores - Administrador";
-            Autores = new List<AutorAdminAutores>();
+            TituloPagina = "Criar Novo Autor";
+            
         }
+
         public class AutorAdminAutores
         {
             public int Id { get; set; }
             public string Nome { get; set; }
-            
+
         }
     }
+
+
 }

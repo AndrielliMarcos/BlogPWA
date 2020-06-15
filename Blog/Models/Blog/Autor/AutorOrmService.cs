@@ -18,6 +18,13 @@ namespace Blog.Models.Blog.Autor
             return _databaseContext.Autores.ToList();
         }
 
+        public AutorEntity ObterAutorPorId(int idAutor)
+        {
+            var autor = _databaseContext.Autores.Find(idAutor);
+
+            return autor;
+        }
+
         public AutorEntity CriarAutor(string nome)
         {
             var novoAutor = new AutorEntity { Nome = nome };
