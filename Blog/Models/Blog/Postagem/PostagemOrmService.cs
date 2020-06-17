@@ -28,13 +28,21 @@ namespace Blog.Models.Blog.Postagem
                 .ToList();
         }
 
+        public PostagemEntity ObterPostagemPorId(int idPostagem)
+        {
+            var postagem = _databaseContext.Postagens.Find(idPostagem);
+
+            return postagem;
+        }
+
         public List<PostagemEntity> ObterPostagensPopulares()
         {
             return _databaseContext.Postagens
-               .Where(c => c.Comentarios.Count > 0)
+               .Include(a => a.Autor)
+               .OrderByDescending(c => c.Comentarios.Count)
+               .Take(4)
                .ToList();
-
-            //DÚVIDA: COMO ORDENAR AS POSTAGENS PELO MAIOR NUMERO DE COMENTARIOS??
+            
         }
 
         public PostagemEntity CriarPostagem(string titulo, string descricao, AutorEntity autor, CategoriaEntity categoria, DateTime dataPublicacao)

@@ -15,10 +15,5 @@ namespace Blog.ViewModels.Admin
             
         }
     }
-    public class AutorAdminAutores
-    {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-
-    }
+    
 }

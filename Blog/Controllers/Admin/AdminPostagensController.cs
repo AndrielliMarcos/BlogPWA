@@ -1,5 +1,8 @@
-﻿using Blog.Models.Blog.Postagem;
+﻿using Blog.Models.Blog.Autor;
+using Blog.Models.Blog.Categoria;
+using Blog.Models.Blog.Postagem;
 using Blog.RequestModels.AdminPostagens;
+using Blog.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,18 +14,44 @@ namespace Blog.Controllers.Admin
     public class AdminPostagensController : Controller
     {
         private readonly PostagemOrmService _postagemOrmService;
+        private readonly CategoriaOrmService _categoriaOrmService;
+        private readonly AutorOrmService _autorOrmService;
+
 
         public AdminPostagensController(
-            PostagemOrmService postagemOrmService
+            PostagemOrmService postagemOrmService,
+            CategoriaOrmService categoriaOrmService,
+            AutorOrmService autorOrmService
         )
         {
             _postagemOrmService = postagemOrmService;
+            _categoriaOrmService = categoriaOrmService;
+            _autorOrmService = autorOrmService;
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return View();
+            AdminPostagensListarViewModel model = new AdminPostagensListarViewModel();
+
+            var listaPostagens = _postagemOrmService.ObterPostagens();
+
+            // Alimentar o model com as postagens que serão listadas
+            foreach (var postagemEntity in listaPostagens)
+            {
+                var postagemAdminPostagens = new PostagemAdminPostagens();
+
+                postagemAdminPostagens.Id = postagemEntity.Id;
+                postagemAdminPostagens.Titulo = postagemEntity.Titulo;
+                postagemAdminPostagens.Descricao = postagemEntity.Descricao;
+                postagemAdminPostagens.NomeAutor = postagemEntity.Autor.Nome;
+                postagemAdminPostagens.NomeCategoria = postagemEntity.Categoria.Nome;
+                postagemAdminPostagens.DataPublicacao = postagemEntity.DataPublicacao;
+
+                model.Postagens.Add(postagemAdminPostagens);
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -34,16 +63,43 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Criar()
         {
-            ViewBag.erro = TempData["erro-msg"];
+            AdminPostagensCriarViewModel model = new AdminPostagensCriarViewModel();
 
-            return View();
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Obter as Categorias
+            var listaCategorias = _categoriaOrmService.ObterCategorias();
+
+            // Alimentar o model com as categorias que serão colocadas no <select> do formulário
+            foreach (var categoriaEntity in listaCategorias)
+            {
+                var categoriaAdminPostagens = new CategoriaAdminPostagens();
+                categoriaAdminPostagens.IdCategoria = categoriaEntity.Id;
+                categoriaAdminPostagens.NomeCategoria = categoriaEntity.Nome;
+
+                model.Categorias.Add(categoriaAdminPostagens);
+            }
+
+            // Obter as Autores
+            var listaAutores = _autorOrmService.ObterAutores();
+
+            // Alimentar o model com os autores que serão colocadas no <select> do formulário
+            foreach (var autorEntity in listaAutores)
+            {
+                var autorAdminPostagens = new AutorAdminPostagens();
+                autorAdminPostagens.IdAutor = autorEntity.Id;
+                autorAdminPostagens.NomeAutor = autorEntity.Nome;
+
+                model.Autores.Add(autorAdminPostagens);
+            }
+
+            return View(model);
         }
 
         [HttpPost]
         public RedirectToActionResult Criar(AdminPostagensCriarRequestModel request)
         {
-            //DÚVIDA: COMO CRIAR A POSTAGEM NA REVISÃO AUTOMATICAMENTE??
-
             var titulo = request.Titulo;
             var descricao = request.Descricao;
             var autor = request.Autor;
@@ -68,10 +124,50 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminPostagensEditarViewModel model = new AdminPostagensEditarViewModel();
 
-            return View();
+            var postagemAEditar = _postagemOrmService.ObterPostagemPorId(id);
+            if (postagemAEditar == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+            // Obter as Categorias
+            var listaCategorias = _categoriaOrmService.ObterCategorias();
+
+            // Alimentar o model com as categorias que serão colocadas no <select> do formulário
+            foreach (var categoriaEntity in listaCategorias)
+            {
+                var categoriaAdminPostagens = new CategoriaAdminPostagens();
+                categoriaAdminPostagens.IdCategoria = categoriaEntity.Id;
+                categoriaAdminPostagens.NomeCategoria = categoriaEntity.Nome;
+
+                model.Categorias.Add(categoriaAdminPostagens);
+            }
+
+            // Obter autores
+            var listaAutores = _autorOrmService.ObterAutores();
+
+            // Alimentar o model com autores
+            foreach (var autorEntity in listaAutores)
+            {
+                var autorAdminPostagens = new AutorAdminPostagens();
+                autorAdminPostagens.IdAutor = autorEntity.Id;
+                autorAdminPostagens.NomeAutor= autorEntity.Nome;
+
+                model.Autores.Add(autorAdminPostagens);
+            }
+      
+            model.IdPostagem = postagemAEditar.Id;
+            model.NomePostagem = postagemAEditar.Titulo;
+            model.IdCategoriaPostagem = postagemAEditar.Categoria.Id;
+            model.IdAutorPostagem = postagemAEditar.Autor.Id;
+            model.TituloPagina += model.NomePostagem;
+
+            return View(model);
         }
 
         [HttpPost]
@@ -100,10 +196,23 @@ namespace Blog.Controllers.Admin
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            ViewBag.id = id;
-            ViewBag.erro = TempData["erro-msg"];
+            AdminPostagensRemoverViewModel model = new AdminPostagensRemoverViewModel();
 
-            return View();
+            var postagemARemover = _postagemOrmService.ObterPostagemPorId(id);
+            if (postagemARemover == null)
+            {
+                return RedirectToAction("Listar");
+            }
+
+            // Definir possível erro de processamento (vindo do post do criar)
+            model.Erro = (string)TempData["erro-msg"];
+
+           
+            model.Id = postagemARemover.Id;
+            model.Titulo = postagemARemover.Titulo;
+            model.TituloPagina += model.Titulo;
+
+            return View(model);
         }
 
         [HttpPost]
