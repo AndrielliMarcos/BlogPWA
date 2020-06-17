@@ -12,12 +12,11 @@ namespace Blog.ViewModels.Admin
         {
             TituloPagina = "Categorias - Administrador";
         }
+    }
+    public class CategoriaAdminCategorias
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
 
-        public class CategoriaAdminCategorias
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-
-        }
     }
 }

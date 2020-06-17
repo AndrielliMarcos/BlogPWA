@@ -14,13 +14,7 @@ namespace Blog.ViewModels.Admin
             TituloPagina = "Criar nova Categoria";
            
         }
-
-        public class CategoriaAdminCategorias
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-
-        }
     }
+    
 }
 

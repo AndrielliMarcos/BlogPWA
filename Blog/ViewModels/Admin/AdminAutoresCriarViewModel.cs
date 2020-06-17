@@ -14,14 +14,11 @@ namespace Blog.ViewModels.Admin
             TituloPagina = "Criar Novo Autor";
             
         }
-
-        public class AutorAdminAutores
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-
-        }
     }
+    public class AutorAdminAutores
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
 
-
+    }
 }

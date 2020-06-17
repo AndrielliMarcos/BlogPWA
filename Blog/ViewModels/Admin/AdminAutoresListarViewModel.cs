@@ -13,11 +13,11 @@ namespace Blog.ViewModels.Admin
             TituloPagina = "Autores - Administrador";
             Autores = new List<AutorAdminAutores>();
         }
-        public class AutorAdminAutores
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            
-        }
+    }
+    public class AutorAdminAutores
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+
     }
 }
