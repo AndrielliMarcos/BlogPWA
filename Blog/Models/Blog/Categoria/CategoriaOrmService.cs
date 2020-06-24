@@ -27,7 +27,7 @@ namespace Blog.Models.Blog.Categoria
             //var primeiraCategoria = _databaseContext.Categorias.First();
 
             // FirstOrDefault = Mesmo do First, porém retorna nulo caso não encontre nenhuma
-           // var primeiraCategoriaOuNulo = _databaseContext.Categorias.FirstOrDefault();
+            //var primeiraCategoriaOuNulo = _databaseContext.Categorias.FirstOrDefault();
 
             // Single = Obter um único registro do banco de dados
             //var algumaCategoriaEspecifica = _databaseContext.Categorias.Single(c => c.Id == 3);
@@ -36,7 +36,7 @@ namespace Blog.Models.Blog.Categoria
             //var algumaCategoriaOuNulo = _databaseContext.Categorias.SingleOrDefault(c => c.Id == 3);
 
             // Find = Equivalente ao SingleOrDefault, porém fazendo uma busca por uma propriedade chave
-           // var encontrarCategoria = _databaseContext.Categorias.Find(3);
+            //var encontrarCategoria = _databaseContext.Categorias.Find(3);
 
 
             /**********************************************************************************************************/
@@ -44,7 +44,7 @@ namespace Blog.Models.Blog.Categoria
             /**********************************************************************************************************/
 
             // ToList
-           // var todasCategorias = _databaseContext.Categorias.ToList();
+            //var todasCategorias = _databaseContext.Categorias.ToList();
 
 
             /***********/
@@ -52,38 +52,43 @@ namespace Blog.Models.Blog.Categoria
             /***********/
 
             //var categoriasComALetraG = _databaseContext.Categorias.Where(c => c.Nome.StartsWith("G")).ToList();
-            //var categoriasComALetraMouL = _databaseContext.Categorias
+            /*
+            var categoriasComALetraMouL = _databaseContext.Categorias
                 .Where(c => c.Nome.StartsWith("M") || c.Nome.StartsWith("L"))
                 .ToList();
-
+            */
 
 
             /*************/
             /* ORDENAÇÃO */
             /*************/
 
-            // var categoriasEmOrdemAlfabetica = _databaseContext.Categorias.OrderBy(c => c.Nome).ToList();
-            // var categoriasEmOrdemAlfabeticaInversa = _databaseContext.Categorias.OrderByDescending(c => c.Nome).ToList();
+            //var categoriasEmOrdemAlfabetica = _databaseContext.Categorias.OrderBy(c => c.Nome).ToList();
+            /*
+            var categoriasEmOrdemAlfabeticaInversa =
+                _databaseContext.Categorias.OrderByDescending(c => c.Nome).ToList();
+            */
 
 
             /**************************/
             /* ENTIDADES RELACIONADAS */
             /**************************/
 
-            // var categoriasESuasEtiquetas = _databaseContext.Categorias
-            //   .Include(c => c.Etiquetas)
-            //  .ToList();
+            /*
+            var categoriasESuasEtiquetas = _databaseContext.Categorias
+                .Include(c => c.Etiquetas)
+                .ToList();
 
-            // var categoriasSemEtiquetas = _databaseContext.Categorias
-            //   .Where(c => c.Etiquetas.Count == 0)
-            //  .ToList();
+            var categoriasSemEtiquetas = _databaseContext.Categorias
+                .Where(c => c.Etiquetas.Count == 0)
+                .ToList();
 
-            //var categoriasComEtiquetas = _databaseContext.Categorias
-             //   .Where(c => c.Etiquetas.Count > 0)
-             //   .ToList();
+            var categoriasComEtiquetas = _databaseContext.Categorias
+                .Where(c => c.Etiquetas.Count > 0)
+                .ToList();
+            */
 
             // FIM DOS EXEMPLOS
-
 
 
             // Código de fato necessário para o método
