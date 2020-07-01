@@ -12,5 +12,10 @@ namespace Blog.ViewModels.Admin
             TituloPagina = "Painel - Administrador";
         }
 
+        public int postagem_count { get; set; }
+        public int autor_count { get; set; }
+        public int categoria_count { get; set; }
+
     }
+   
 }

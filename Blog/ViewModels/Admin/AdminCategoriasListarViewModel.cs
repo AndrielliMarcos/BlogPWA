@@ -11,6 +11,8 @@ namespace Blog.ViewModels.Admin
         public AdminCategoriasListarViewModel()
         {
             TituloPagina = "Categorias - Administrador";
+
+            Categorias = new List<CategoriaAdminCategorias>();
         }
     }
     public class CategoriaAdminCategorias
